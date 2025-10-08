@@ -1,5 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import BlogPost from '../components/BlogPost.astro';
+
+//Her legges alle MarkDown-filene inn i en variabel. 
+const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true }));
 
 const pageTitle = "My Astro Learning Blog";
 ---
@@ -11,9 +15,7 @@ const pageTitle = "My Astro Learning Blog";
     
   <!-- Linker til Blog innlegg -->
     <ul>
-      <li><a href="/posts/post-1">Post 1</a></li>
-      <li><a href="/posts/post-2">Post 2</a></li>
-      <li><a href="/posts/post-3">Post 3</a></li>
+      {allPosts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title} />)}
     </ul>
   </BaseLayout>
  
